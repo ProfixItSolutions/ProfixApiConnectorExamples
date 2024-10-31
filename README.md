@@ -50,7 +50,7 @@ If you have already established connection in another class you can also directl
 ## Step 4
 You always have to set your current application (Except for subscriptions)
 ```C#
-	IProfixAuthorizer authorizer = x.Services.GetRequiredService<IProfixAuthorizer>();
+	IProfixAuthorizer authorizer = _serviceProvider.GetRequiredService<IProfixAuthorizer>();
     IProfixConnection conn = authorizer.GetConnection();
 	 ApiResult<ICollection<Application>> applist = conn.Applications.Get();
 	 if (applist.Success)
@@ -70,14 +70,14 @@ You always have to set your current application (Except for subscriptions)
 Reuse tokens:
 Retreive the current token:
 ```C#
-IProfixAuthorizer authorizer = x.Services.GetRequiredService<IProfixAuthorizer>();
+IProfixAuthorizer authorizer = _serviceProvider.GetRequiredService<IProfixAuthorizer>();
 var token = authorizer.GetToken();
 SaveToDatabase(token.AccessToken, token.RefreshToken);
 ```
 
 Setting an pre-existing token:
 ```C#
-IProfixAuthorizer authorizer = x.Services.GetRequiredService<IProfixAuthorizer>();
+IProfixAuthorizer authorizer = _serviceProvider.GetRequiredService<IProfixAuthorizer>();
 authorizer.LoadAccessToken("access_token", "refresh_token");
 IProfixConnection conn = authorizer.GetConnection();
 ```
